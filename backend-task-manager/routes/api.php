@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AuthController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,3 +25,6 @@ Route::match(
     [UserController::class, 'update']
 );
 Route::delete('/users/{user}', [UserController::class, 'destroy']);
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::get('/auth/me', [AuthController::class, 'me'])->middleware('auth:api');
